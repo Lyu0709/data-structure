@@ -7,7 +7,7 @@ import com.coding.basic.Iterator;
 import com.coding.basic.List;
 
 /**
- * 底层实现是一个双向循环链表。head节点中不储存数据。
+ * 底层实现是一个双向链表。head节点中不储存数据。
  * 
  * @author Administrator
  *
