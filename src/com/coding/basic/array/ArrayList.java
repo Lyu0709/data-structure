@@ -5,6 +5,14 @@ import java.util.Arrays;
 import com.coding.basic.Iterator;
 import com.coding.basic.List;
 
+/**
+ * 线性表的顺序存储结构
+ * 笔记详见：http://www.cnblogs.com/lyu0709/p/6768178.html
+ * 
+ * @author Administrator
+ *
+ * @param <T>
+ */
 public class ArrayList<T> implements List<T>{
 	
 	private int size = 0;
