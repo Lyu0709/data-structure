@@ -4,6 +4,7 @@ import java.util.Collection;
 
 /**
  * 尾插式单链表实现
+ * 笔记详见：http://www.cnblogs.com/lyu0709/p/6770309.html
  * 
  * @author Administrator
  *
