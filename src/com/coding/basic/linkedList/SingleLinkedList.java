@@ -84,17 +84,40 @@ public class SingleLinkedList<T> {
 		return node;
 	}
 	
-	public boolean add(T o){
-		
-		return true;
+	public boolean add(T o){		
+		return add(size, o);
 	}
 	
-	private Node<T> addbefore(T o, Node<T> node) {
+	private Node<T> addafter(T o, Node<T> node) {
+		Node<T> next = node.next;
+		Node<T> newNode = new Node<T>(o, next);
+		node.next = newNode;
 		
-		return null;
+		return newNode;
 	}
 	
 	public boolean add(int index , T o){
+		checkIndex(index);
+		
+		Node<T> node = new Node<>(o, null);
+		
+		Node<T> prev;
+		if(index == 0){
+			prev = head;
+		}else{
+			prev = entry(index - 1);
+		}
+		Node<T> next = prev.next;
+		
+		node.next = next;
+		prev.next = node;
+		
+		if(index == size){
+			this.tail = node;
+		}
+		
+		size++;
+		
 		return true;
 	}
 	
@@ -104,39 +127,47 @@ public class SingleLinkedList<T> {
 	}
 	
 	public T remove(int index){
-		checkIndex(index);
+		checkIndex(index);	//幽幽的觉得这个checkIndex()方法写的不对……但是目前的版本对add方法好好用啊……
+		if(index == size){
+			throw new IndexOutOfBoundsException();
+		}
 		
+		Node<T> prev = entry(index - 1);
+		Node<T> target = prev.next;
+		Node<T> next = target.next;
 		
-		return null;
+		prev.next = next;
+		target.next = null;
+		T t = target.data;
+		target.data = null;
+		
+		if(index == size - 1){
+			this.tail = prev;
+		}
+		
+		size--;
+		return t;
 	}
-	
-	public T remove(Node<T> node){
-		
-		return null;
-	}
-	
+
 	public int size(){
 		return this.size;
 	}
 	
 	public void addFirst(T o){
-		
+		add(0, o);
 	}
 	
 	public void addLast(T o){
-		
+		add(size, o);
 	}
 	
 	public T removeFirst(){
-		return null;
+		return remove(0);
 	}
 	
-	public T removeLast(){
-		
-		return null;
-	}
-	
-	
+	public T removeLast(){		
+		return remove(size-1);
+	}	
 	
 	private static class Node<T>{
 		T data;
