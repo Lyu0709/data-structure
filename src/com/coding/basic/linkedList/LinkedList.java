@@ -6,11 +6,14 @@ import java.util.NoSuchElementException;
 import com.coding.basic.Iterator;
 import com.coding.basic.List;
 
-public class LinkedList<T> implements List<T> {
-/*
- * LinkedList的底层是一个双向循环链表。head节点中不储存数据。
+/**
+ * 底层实现是一个双向循环链表。head节点中不储存数据。
  * 
+ * @author Administrator
+ *
+ * @param <T>
  */
+public class LinkedList<T> implements List<T> {
 	private Node<T> head;
 		
 	private int size;
