@@ -193,6 +193,20 @@ public class LinkedList<T> implements List<T> {
 		}
 	}
 	
+	public String toString(){
+		if(size==0){
+			return null;
+		}
+		StringBuilder sb = new StringBuilder("(");
+		Node<T> node = head.next;
+		for(int i=0; i<size-1; i++){			
+			sb.append(node.data+",");
+			node = node.next;
+		}
+		sb.append(node.data+")");
+		return sb.toString();
+	}
+	
 	
 	/**
 	 * 把该链表逆置
@@ -202,21 +216,20 @@ public class LinkedList<T> implements List<T> {
 		if(null == head || null == head.next){
 			return;
 		}
-		//先把head节点之后的Node顺序倒序，无非就是前节点变后节点，后节点变前节点
-		Node prev = null;
-		Node curr = head.next;
-		Node next;
-		while(curr != null){
-			prev = curr.previous;
-			next = curr.next;
+		
+		Node<T> curr = head.previous;	// 最后一个结点
+		
+		Node<T> firstNode = head.next;
+		head.next = head.previous;
+		head.previous = firstNode;
+		
+		while(curr != head){
+			Node<T> prev = curr.previous;
+			Node<T> next = curr.next;
 			curr.previous = next;
 			curr.next = prev;
-			prev = curr;
-			curr = next;			
+			curr = prev;
 		}
-		//处理head节点
-		head.data = null;
-		head = prev;
 	}
 	
 	/**
@@ -297,5 +310,23 @@ public class LinkedList<T> implements List<T> {
 	public LinkedList intersection(LinkedList list){
 		
 		return null;
+	}
+	
+	public static void main(String[] args) {
+		LinkedList list = new LinkedList();
+		list.add(1);
+		list.add(2);
+		list.add(3);
+		list.add(4);
+		list.add(5);
+		list.add(6);
+		System.out.println(list.toString());
+		list.reverse();
+		
+		
+		
+		
+		
+		System.out.println(list.toString());
 	}
 }
