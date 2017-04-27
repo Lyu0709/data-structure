@@ -44,26 +44,16 @@ public class SingleLinkedList<T> {
 			return false;
 		}
 		
-		//若0<index<=size，则原链表需要从腰上斩断然后再接新的结点，斩断后的长度为：
-		size = size - (size - index);
-		/*
-		 * 若index=0，则从头开始接数据，原数据舍弃
-		 * 若0<index<size，则tail也要变化
-		 * 若index=size，则tail不变
-		 */
-		if(index == 0){
-			tail.data = null;
-			head.next = tail;
-		}else if(index < size){
-			tail = entry(index - 1);
-		}
+		Node<T> successor = index==size?tail:entry(index);		
+		Node<T> predecessor = index==0?head:entry(index-1);
 		
 		for(int i=0; i<len; i++){
 			Node temp = new Node<T>((T)objs[i], null);	//生成目标结点
-			tail.next = temp;	//将目标结点挂在链表的尾巴上
-			tail = temp;	//此时该结点为尾巴结点
-			size++;	//长度增长1
+			predecessor.next = temp;
+			predecessor = temp;
 		}
+		predecessor.next = successor;
+		size += len;	
 		
 		return true;
 	}
@@ -128,9 +118,8 @@ public class SingleLinkedList<T> {
 	}
 	
 	public T remove(int index){
-		checkIndex(index);	//幽幽的觉得这个checkIndex()方法写的不对……但是目前的版本对add方法好好用啊……
-		if(index == size){
-			throw new IndexOutOfBoundsException();
+		if(index < 0 || index >= size){
+			throw new IndexOutOfBoundsException("Index: "+index+ ", Size: "+size);
 		}
 		
 		Node<T> prev = entry(index - 1);

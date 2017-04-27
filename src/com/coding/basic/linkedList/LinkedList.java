@@ -7,15 +7,15 @@ import com.coding.basic.Iterator;
 import com.coding.basic.List;
 
 /**
- * 底层实现是一个双向链表。head节点中不储存数据。
+ * 底层实现是一个双向循环链表。
+ * 双向循环链表的笔记详见：
  * 
  * @author Administrator
  *
  * @param <T>
  */
 public class LinkedList<T> implements List<T> {
-	private Node<T> head;
-		
+	private Node<T> head;		
 	private int size;
 	
 	public LinkedList(){
@@ -60,13 +60,15 @@ public class LinkedList<T> implements List<T> {
 	}
 
 	private void checkIndex(int index) {
-		if(index < 0 || index >= size){
+		if(index < 0 || index > size){
 			throw new IndexOutOfBoundsException("Index: "+index+ ", Size: "+size);
 		}
 	}
 
 	private Node<T> entry(int index) {
-		checkIndex(index);
+		if(index < 0 || index >= size){
+			throw new IndexOutOfBoundsException("Index: "+index+ ", Size: "+size);
+		}
 		
 		Node<T> node = head;
 		if(index < (size >> 1)){
@@ -171,7 +173,6 @@ public class LinkedList<T> implements List<T> {
 		@Override
 		public T next() {
 			
-			
 			return null;
 		}
 		
@@ -191,6 +192,7 @@ public class LinkedList<T> implements List<T> {
 			
 		}
 	}
+	
 	
 	/**
 	 * 把该链表逆置
