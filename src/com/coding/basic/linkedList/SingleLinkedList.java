@@ -44,8 +44,8 @@ public class SingleLinkedList<T> {
 			return false;
 		}
 		
-		Node<T> successor = index==size?tail:entry(index);		
-		Node<T> predecessor = index==0?head:entry(index-1);
+		Node<T> successor = (index==size?tail:entry(index));		
+		Node<T> predecessor = (index==0?head:entry(index-1));
 		
 		for(int i=0; i<len; i++){
 			Node temp = new Node<T>((T)objs[i], null);	//生成目标结点
