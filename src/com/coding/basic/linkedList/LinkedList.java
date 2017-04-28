@@ -72,7 +72,7 @@ public class LinkedList<T> implements List<T> {
 		
 		Node<T> node = head;
 		if(index < (size >> 1)){
-			for(int i=0; i<index; i++){
+			for(int i=0; i<=index; i++){
 				node = node.next;
 			}
 		}else{
@@ -116,7 +116,8 @@ public class LinkedList<T> implements List<T> {
 	}
 	
 	public T remove(int index){
-		Node<T> node = entry(index);		
+		Node<T> node = entry(index);
+//		System.out.println("remove(i): i="+index+" data="+node.data);
 		T t = remove(node);
 				
 		return t;		
@@ -191,6 +192,12 @@ public class LinkedList<T> implements List<T> {
 		Node(){
 			
 		}
+		
+		void clear(){
+			this.data = null;
+			this.previous = null;
+			this.next = null;
+		}
 	}
 	
 	public String toString(){
@@ -238,8 +245,21 @@ public class LinkedList<T> implements List<T> {
 	 * 如果list = 2->5->7->8->10 ,删除以后的值为7,8,10
 	 */
 	public void removeFirstHalf(){
+		if(size==0){
+			return;
+		}
 		
-		
+		int firstHalfAmount = size / 2;
+		for(int i=0; i<firstHalfAmount; i++){
+			Node<T> curr = head.next;
+			head.next = curr.next;
+			curr.next.previous = head;
+			curr.data = null;
+			curr.previous = null;
+			curr.next = null;
+			size--;
+		}
+		//head.next.previous = head;
 	}
 	
 	/**
@@ -248,7 +268,14 @@ public class LinkedList<T> implements List<T> {
 	 * @param length
 	 */
 	public void remove(int i, int length){
+		if(i+length>size){
+			throw new IndexOutOfBoundsException();
+		}
 		
+		for(int j=0; j<length; j++){
+			remove(i);
+//			i++;
+		}
 		
 		
 	}
@@ -262,9 +289,17 @@ public class LinkedList<T> implements List<T> {
 	 * @param list
 	 */
 	public int[] getElements(LinkedList list){
+		if(list.size()==0){
+			return null;
+		}
+		int[] result = new int[list.size()];
+		for(int i=0; i<list.size(); i++){
+			Integer j = (Integer)list.get(i);
+			Integer t = (Integer)this.entry(j).data;
+			result[i] = t;
+		}
 		
-		
-		return null;
+		return result;
 	}
 	
 	/**
@@ -273,7 +308,9 @@ public class LinkedList<T> implements List<T> {
 	 * @param list
 	 */	
 	public void subtract(LinkedList list){
-		
+		for(int i=0; i<list.size(); i++){
+			remove(list.get(i));
+		}
 	}
 	
 	/**
@@ -281,7 +318,26 @@ public class LinkedList<T> implements List<T> {
 	 * @param obj
 	 */
 	public void remove(Object obj){
-		
+		Node<T> node = head.next;
+		Node<T> temp;
+		int num = 0;
+		for(int i=0; i<size; i++){
+//			System.out.println("obj: "+obj+" node.data: "+node.data);
+			
+			if(node.data.equals(obj)){
+				node.previous.next = node.next;
+				node.next.previous = node.previous;
+				temp = node.next;
+				node.clear();				
+				num++;
+				node = temp;
+			}else{
+				node = node.next;
+			}
+			
+			
+		}
+		size -= num;
 	}
 	
 	/**
@@ -313,6 +369,7 @@ public class LinkedList<T> implements List<T> {
 	}
 	
 	public static void main(String[] args) {
+		
 		LinkedList list = new LinkedList();
 		list.add(1);
 		list.add(2);
@@ -320,13 +377,31 @@ public class LinkedList<T> implements List<T> {
 		list.add(4);
 		list.add(5);
 		list.add(6);
+		
+		LinkedList indexList = new LinkedList();
+		indexList.add(1);
+		indexList.add(2);
+
 		System.out.println(list.toString());
-		list.reverse();
+
+//		list.reverse();
 		
+//		list.removeFirstHalf();
 		
+//		list.remove(3, 2);
+		
+//		int[] result = list.getElements(indexList);
+//		for(int i=0; i<result.length; i++){
+//			System.out.println(result[i]);
+//		}
+		
+//		list.remove((Integer)3);
+		
+		list.subtract(indexList);
 		
 		
 		
 		System.out.println(list.toString());
+		
 	}
 }
