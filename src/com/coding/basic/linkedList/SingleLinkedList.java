@@ -10,7 +10,7 @@ import java.util.Collection;
  *
  */
 public class SingleLinkedList<T> {
-	private Node<T> head;	// 头结点
+	private Node<T> head;	// 头结点：指向第一个结点的位置
 	private Node<T> tail;	// 尾结点
 	private int size;
 	
