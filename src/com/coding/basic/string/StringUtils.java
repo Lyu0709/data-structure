@@ -29,8 +29,16 @@ public class StringUtils {
 		return -1;
 	}
 	
-	public int KMP(String str, String subString, int pos){
+	public static int KMP(String str, String subString, int pos){
 		
 		return 0;
+	}
+	
+	private static int[] next(char[] strChars){
+		int length = strChars.length;
+		int[] next = new int[length];
+		
+		
+		return next;
 	}
 }
