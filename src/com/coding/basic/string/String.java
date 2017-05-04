@@ -112,4 +112,8 @@ public class String {
 		}
 		return new String(val);
 	}
+
+	public char[] toCharArray(){
+		return this.value;
+	}
 }
